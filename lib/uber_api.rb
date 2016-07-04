@@ -1,5 +1,6 @@
 require 'rest-client'
 require 'json'
+require_relative 'location_coordinates'
 
 class UberApi
 
@@ -10,13 +11,12 @@ class UberApi
   attr_accessor :source
 
   def initialize(source)
-    @source = source
+    @source = Location.new(*source)
   end
 
 
-  # curl -H 'Authorization: Token -L1_CxEMZes8j_5J5bL9V61tVvTJrPGEFSC_pZ2j' 'https://api.uber.com/v1/products?latitude=12.927880&longitude=77.627600&product_id=db6779d6-d8da-479f-8ac7-8068f4dade6f'
+  # curl -H 'Authorization: Token <token>' 'https://api.uber.com/v1/products?latitude=12.927880&longitude=77.627600&product_id=db6779d6-d8da-479f-8ac7-8068f4dade6f'
   def get_eta
-    return 180
     api_params = {
       start_latitude:  self.source.coordinates[:latitude],
       start_longitude: self.source.coordinates[:longitude],

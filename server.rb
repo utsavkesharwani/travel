@@ -1,7 +1,7 @@
 require "sinatra"
-require "time"
 require "./constants"
-Dir["./lib/*.rb"].each {|file| require file }
+# Dir["./lib/*.rb"].each {|file| require file }
+require "./lib/booking"
 use Rack::Logger
 require 'digest/sha1'
 
@@ -11,6 +11,18 @@ helpers do
   end
 end
 
+def standardise_params(params)
+  target_params = {}
+
+  ['source', 'destination'].each do |coordinates|
+    target_params[coordinates] = params[coordinates].split(',').map(&:strip)
+  end
+
+  target_params['email'] = params['email']
+  target_params['arrival_time']  = Time.parse(params['arrival_time']).to_i
+
+  target_params
+end
 
 get "/" do
   erb :index
@@ -20,19 +32,8 @@ post "/book-uber" do
   logger.info "params - #{params.inspect}"
   booking_id = Digest::SHA1.hexdigest("#{params['email']}-#{Time.now.to_i}")
 
-  source_coordinates = params['source'].split(',').map(&:strip)
-  source = Location.new(*source_coordinates)
+  target_params = standardise_params(params)
 
-  destination_coordinates = params['destination'].split(',').map(&:strip)
-  destination = Location.new(*destination_coordinates)
-
-  arrival_time = Time.parse(params['time'])
-
-  email = params['email']
-
-  time_required = UberApi.new(source).get_eta + GoogleMapsApi.new(source, destination, arrival_time.to_i).get_eta
-  logger.info("Time reqd = #{time_required}")
-
-  RedisUtils.add_booking_query(booking_id, email, source_coordinates, destination_coordinates, time_required, arrival_time)
+  Booking.create_or_update(booking_id, target_params)
   redirect "/"
 end

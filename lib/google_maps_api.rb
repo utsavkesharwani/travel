@@ -1,5 +1,6 @@
 require 'rest-client'
 require 'json'
+require_relative 'location_coordinates'
 
 class GoogleMapsApi
 
@@ -10,14 +11,13 @@ class GoogleMapsApi
   attr_accessor :source, :destination, :arrival_time
 
   def initialize(source, destination, arrival_time)
-    @source       = source
-    @destination  = destination
+    @source       = Location.new(*source)
+    @destination  = Location.new(*destination)
     @arrival_time = arrival_time
   end
 
   # curl -vvv "https://maps.googleapis.com/maps/api/directions/json?origin=12.927880,77.627600&mode=driving&destination=13.035542,77.597100&arrival_time=1467441000"
   def get_eta
-    return 3007
     api_params = {
       origin:       self.source.get_location_params_for_google_maps_api,
       destination:  self.destination.get_location_params_for_google_maps_api,

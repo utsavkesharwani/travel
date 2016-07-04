@@ -17,7 +17,7 @@
     </p>
     <p>
       <label>Time: 
-        <input type="datetime-local" name="time" required="true" value=<%= Time.now %>>
+        <input type="datetime-local" name="arrival_time" required="true" value=<%= Time.now.strftime('%Y-%m-%dT%H:%M') %>>
       </label>
     </p>
     <p>
