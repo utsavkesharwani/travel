@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>Book Your uber</title>
+</head>
+<body>
+  <h3>It's time to book an Uber</h3>
+  <form method="POST" action="/book-uber">
+    <p>
+      <label>Source: 
+        <input type="text" name="source" required="true">
+      </label>
+    </p>
+    <p>
+      <label>Destination: 
+        <input type="text" name="destination" required="true">
+      </label>
+    </p>
+    <p>
+      <label>Time: 
+        <input type="datetime-local" name="time" required="true" value=<%= Time.now %>>
+      </label>
+    </p>
+    <p>
+      <label>Email: 
+        <input type="email" name="email" required="true">
+      </label>
+    </p>
+
+    <input type="submit" name="submit" value="REMIND ME">
+  </form>
+</body>
+</html>
