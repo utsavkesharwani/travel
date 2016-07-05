@@ -10,7 +10,6 @@ class Booking
     time_required = calculate_required_time(target_params)
 
     if its_time_to_notify_user?(time_required, target_params['arrival_time'])
-      puts "Fuck yeah.. its time"
       notifier = UserNotifier.new(target_params['email'])
       notifier.inform_user_to_book_uber
       return
@@ -71,7 +70,7 @@ class Booking
         return current_difference - 10*60
 
       else
-        return 60 ## Check eta again every minute, if time to leave is less than 10 mins.
+        return (60 - (current_difference%60)) ## Check eta again every minute, if time to leave is less than 10 mins.
       end
     end
   end

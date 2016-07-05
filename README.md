@@ -21,6 +21,9 @@
 ###To run server:
 - ruby server.rb
 
+###To run redis-suscriber:
+- ruby scripts/pubsib.rb
+
 ###Assumptions:
 - API calls take 0 seconds to respond
 - At any point of time, an Uber GO is available with finite eta

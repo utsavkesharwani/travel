@@ -37,3 +37,8 @@ post "/book-uber" do
   Booking.create_or_update(booking_id, target_params)
   redirect "/"
 end
+
+get "/api-logs" do
+  content_type :json
+  { api_logs: REDIS_CLIENT.lrange("api-calls", 0, -1) }.to_json
+end

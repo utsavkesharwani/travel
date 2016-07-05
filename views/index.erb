@@ -28,5 +28,19 @@
 
     <input type="submit" name="submit" value="REMIND ME">
   </form>
+  <hr />
+  <h3>API Logs</h3>
+  <p id='api-logs'></p>
+
+  <script type="text/javascript" src="javascripts/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      setInterval(function(){
+        $.getJSON('/api-logs', function(res){
+          $('#api-logs').html(res.api_logs.join('<br />'));
+        });
+      }, 5000);
+    });
+  </script>
 </body>
 </html>
