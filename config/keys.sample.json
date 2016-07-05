@@ -1,4 +1,13 @@
 {
-  "google_api_token": "google_api_token_val",
-  "uber_api_token": "uber_api_token_val"
+  "google_api_token": "<google_api_token_val>",
+  "uber_api_token"  : "<uber_api_token_val>",
+  "mail_credentials": {
+    "address"              : "smtp.gmail.com",
+    "domain"               : "gmail.com",
+    "port"                 : 587,
+    "user_name"            : "<your_gmail_account>",
+    "password"             : "<your_gmail_account_password>",
+    "authentication"       : "plain",
+    "enable_starttls_auto" : true
+  }
 }
