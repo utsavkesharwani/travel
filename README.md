@@ -1,3 +1,10 @@
+#About Me
+- Assume you need to reach a destination 'A' at say evening, 8:00 pm
+- Right now you're at destination 'B', and its 8:00 am right now
+- The time taken to travel from 'B' to 'A' varies between 1 hour to 2 hours (depending on traffic)
+- The time taken to book an Uber at 'B' is finite (assuming availability of cabs is not an issue)
+- This App triggers you an email, when its perfect time for you to book an Uber, so that you reach 'A' at sharp 8:00 pm
+
 #Setup
 
 ###Ruby Setup
